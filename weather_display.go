@@ -3,6 +3,11 @@ package main
 import "fmt"
 
 func displayWeather(weatherData *WeatherResponse) {
+	if weatherData == nil {
+		fmt.Println("날씨 데이터를 찾을 수 없습니다.")
+		return
+	}
+
 	fmt.Println("\n--- 날씨 정보 ---")
 	fmt.Printf("도시: %s (위도: %.2f, 경도: %.2f)\n", weatherData.Name, weatherData.Coord.Lat, weatherData.Coord.Lon)
 
