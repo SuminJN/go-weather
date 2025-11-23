@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"net/http"
+)
+
 type WeatherResponse struct {
 	Coord struct {
 		Lon float64 `json:"lon"`
@@ -20,4 +25,18 @@ type WeatherResponse struct {
 	} `json:"main"`
 
 	Name string `json:"name"`
+}
+
+func FetchWeather(city, units, apiKey string) (*WeatherResponse, error) {
+	url := fmt.Sprintf(
+		"http://api.openweathermap.org/data/2.5/weather?q=%s&units=%s&appid=%s",
+		city, units, apiKey,
+	)
+
+	resp, _ := http.Get(url)
+	defer resp.Body.Close()
+
+	var weatherData WeatherResponse
+
+	return &weatherData, nil
 }
