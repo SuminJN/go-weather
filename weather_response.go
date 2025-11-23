@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -33,10 +35,21 @@ func FetchWeather(city, units, apiKey string) (*WeatherResponse, error) {
 		city, units, apiKey,
 	)
 
-	resp, _ := http.Get(url)
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, fmt.Errorf("HTTP 요청 오류: %w", err)
+	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return nil, fmt.Errorf("API 응답 오류: 상태 코드 %d, 응답 본문: %s", resp.StatusCode, string(bodyBytes))
+	}
+
 	var weatherData WeatherResponse
+	if err := json.NewDecoder(resp.Body).Decode(&weatherData); err != nil {
+		return nil, fmt.Errorf("JSON 디코딩 오류: %w", err)
+	}
 
 	return &weatherData, nil
 }
