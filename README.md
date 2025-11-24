@@ -88,4 +88,5 @@ OpenWeatherMap API를 사용하여 한국 도시의 날씨 정보를 조회하�
 ## 결과 화면
 
 <img width="572" height="425" alt="image" src="https://github.com/user-attachments/assets/52c08bfe-b5a3-4c82-a0b5-93529eb65656" />
+<img width="613" height="220" alt="image" src="https://github.com/user-attachments/assets/4e0ed1de-348b-4eb6-91b8-91e28f1f7cb0" />
 
